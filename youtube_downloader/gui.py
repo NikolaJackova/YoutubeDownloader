@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter.ttk import Combobox
 from enum import Enum
-
 from downloader import YoutubeDownloader
 
 def create_widgets():
@@ -17,12 +16,11 @@ def create_widgets():
     Combobox(root, textvariable=combobox_var, values=list(format_enum.__members__), state="readonly").grid(row=2, columnspan=2)
 
     tk.Button(root, text="Browse", command=browse).grid(row=1, column=3, padx=10, pady=10)
-    tk.Button(root, text="Download", command= lambda: downloader.downloadPlaylist(video_link.get(), download_path.get(), combobox_var.get()), width=20).grid(columnspan=4, padx=10, pady=10)
+    tk.Button(root, text="Download", command= lambda: downloader.download(video_link.get(), download_path.get(), combobox_var.get()), width=20).grid(columnspan=4, padx=10, pady=10)
 
 def browse():
     download_directory = filedialog.askdirectory(title="Save file", initialdir="C:")
     download_path.set(download_directory)
-
 
 format_enum = Enum(value="FormatEnum", names="MP3 MP4")
 downloader = YoutubeDownloader()
