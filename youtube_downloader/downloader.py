@@ -1,11 +1,14 @@
+import os
 from pytube import YouTube, Playlist
 from moviepy.editor import *
 
 class YoutubeDownloader:
     def convertMP4ToMP3(self, out_file):
         base, ext = os.path.splitext(out_file)
-        new_file = base + '.mp3'
-        os.rename(out_file, new_file)
+        video = AudioFileClip(out_file)
+        video.write_audiofile(os.path.join(base + ".mp3"))
+        video.close()
+        os.remove(out_file)
 
     def downloadVideo(self, link, path, mime_type):
         video_streams = YouTube(link).streams
